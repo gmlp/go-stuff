@@ -132,17 +132,14 @@ func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error
 // loadFeatures load features from a JSON file.
 func (s *routeGuideServer) loadFeatures(filePath string) {
 	var data []byte
-	if filePath != "" {
-		var err error
-		data, err = ioutil.ReadFile(filePath)
-		if err != nil {
-			log.Fatalf("could not open features file %v", err)
-		}
-		if err := json.Unmarshal(data, &s.savedFeatures); err != nil {
-			log.Fatalf("failed to load features: %v", err)
-		}
+	var err error
+	data, err = ioutil.ReadFile(filePath)
+	if err != nil {
+		log.Fatalf("could not open features file %v", err)
 	}
-
+	if err := json.Unmarshal(data, &s.savedFeatures); err != nil {
+		log.Fatalf("failed to load features: %v", err)
+	}
 }
 
 func inRange(point *pb.Point, rect *pb.Rectangle) bool {
