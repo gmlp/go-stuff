@@ -22,4 +22,23 @@ func TestBuilderPattern(t *testing.T) {
 	if car.Seats != 5 {
 		t.Errorf("Seats on a car must be 5 and they were %d\n", car.Seats)
 	}
+
+	bikeBuilder := &BikeBuilder{}
+
+	manufacturingComplex.SetBuilder(bikeBuilder)
+	manufacturingComplex.Construct()
+
+	motorbike := bikeBuilder.GetVehicle()
+
+	if motorbike.Wheels != 2 {
+		t.Errorf("Wheels on a motorbike must be 2 and they were %d\n", motorbike.Wheels)
+	}
+
+	if motorbike.Structure != "Motorbike" {
+		t.Errorf("structure must be 'Motorbike' and was %s\n", motorbike.Structure)
+	}
+
+	if motorbike.Seats != 2 {
+		t.Errorf("seat must be 2 and was %d\n", motorbike.Seats)
+	}
 }
